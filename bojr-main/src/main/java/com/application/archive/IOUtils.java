@@ -23,7 +23,7 @@ public final class IOUtils {
 
     /**
      * Copies the content of an InputStream into a destination File.
-     * 
+     *
      * @param source the InputStream to copy
      * @param destination the target File
      * @throws IOException if an error occurs
@@ -41,7 +41,7 @@ public final class IOUtils {
 
     /**
      * Copies the content of a InputStream into an OutputStream. Uses a default buffer size of 8024 bytes.
-     * 
+     *
      * @param input the InputStream to copy
      * @param output the target Stream
      * @return the amount of bytes written
@@ -53,7 +53,7 @@ public final class IOUtils {
 
     /**
      * Copies the entire content of the given InputStream into the given OutputStream.
-     * 
+     *
      * @param input the InputStream to copy
      * @param output the target Stream
      * @param buffersize the buffer size to use
@@ -76,7 +76,7 @@ public final class IOUtils {
      * <br>
      * If the root is {@code /home/cdlflex/custom-ahy} and the given node is
      * {@code /home/cdlflex/custom-ahy/assembly/pom.xml}, the returned path name will be {@code assembly/pom.xml}.
-     * 
+     *
      * @param root the parent node
      * @param node the file node to compute the relative path for
      * @return the path of {@code node} relative to {@code root}
@@ -94,7 +94,7 @@ public final class IOUtils {
      * can be created at its path.
      * <br>
      * Will throw an exception if the given {@link File} is actually an existing file
-     * 
+     *
      * @param destination the directory which to ensure its existence for
      * @throws IOException if an I/O error occurs e.g. when attempting to create the destination directory
      * @throws IllegalArgumentException if the destination is an existing file
@@ -104,12 +104,14 @@ public final class IOUtils {
             throw new IllegalArgumentException(destination + " exists and is a file, directory or path expected.");
         } else if (!destination.exists()) {
             destination.mkdirs();
+        } else if (!destination.canWrite()){
+            throw new IllegalArgumentException(destination + " is not writeable.");
         }
     }
 
     /**
      * Null-safe method that calls {@link java.io.Closeable#close()} and chokes the IOException.
-     * 
+     *
      * @param closeable the object to close
      */
     public static void closeQuietly(Closeable closeable) {
